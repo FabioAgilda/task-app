@@ -5,7 +5,7 @@ const auth = async (req, res, next) => {
     try {
         // if no token (trycatch)
         const token = req.header('Authorization').replace('Bearer ', '') // Provided token
-        const decoded = jwt.verify(token, 'entrenemosnutricion') //decode token 
+        const decoded = jwt.verify(token, process.env.JWT_SECRET) //decode token 
         const user = await User.findOne({ _id: decoded._id, 'tokens.token': token }) // check if the token and id are valid 
 
         if (!user) {
